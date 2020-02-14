@@ -32,11 +32,7 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.common.annotation.KeepName;
 import com.google.firebase.ml.common.FirebaseMLException;
-import com.google.firebase.samples.apps.mlkit.barcodescanning.BarcodeScanningProcessor;
-import com.google.firebase.samples.apps.mlkit.custommodel.CustomImageClassifierProcessor;
 import com.google.firebase.samples.apps.mlkit.facedetection.FaceDetectionProcessor;
-import com.google.firebase.samples.apps.mlkit.imagelabeling.ImageLabelingProcessor;
-import com.google.firebase.samples.apps.mlkit.textrecognition.TextRecognitionProcessor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,10 +46,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         OnItemSelectedListener,
         CompoundButton.OnCheckedChangeListener {
   private static final String FACE_DETECTION = "Face Detection";
-  private static final String TEXT_DETECTION = "Text Detection";
-  private static final String BARCODE_DETECTION = "Barcode Detection";
-  private static final String IMAGE_LABEL_DETECTION = "Label Detection";
-  private static final String CLASSIFICATION = "Classification";
+
   private static final String TAG = "LivePreviewActivity";
   private static final int PERMISSION_REQUESTS = 1;
 
@@ -81,10 +74,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     Spinner spinner = (Spinner) findViewById(R.id.spinner);
     List<String> options = new ArrayList<>();
     options.add(FACE_DETECTION);
-    options.add(TEXT_DETECTION);
-    options.add(BARCODE_DETECTION);
-    options.add(IMAGE_LABEL_DETECTION);
-    options.add(CLASSIFICATION);
+
     // Creating adapter for spinner
     ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
     // Drop down layout style - list view with radio button
@@ -137,45 +127,32 @@ public final class LivePreviewActivity extends AppCompatActivity
     startCameraSource();
   }
 
+
   private void createCameraSource(String model) {
     // If there's no existing cameraSource, create one.
     if (cameraSource == null) {
       cameraSource = new CameraSource(this, graphicOverlay);
     }
 
-    try {
-      switch (model) {
-        case CLASSIFICATION:
-          Log.i(TAG, "Using Custom Image Classifier Processor");
-          cameraSource.setMachineLearningFrameProcessor(new CustomImageClassifierProcessor(this));
-          break;
-        case TEXT_DETECTION:
-          Log.i(TAG, "Using Text Detector Processor");
-          cameraSource.setMachineLearningFrameProcessor(new TextRecognitionProcessor());
-          break;
-        case FACE_DETECTION:
-          Log.i(TAG, "Using Face Detector Processor");
-          cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor());
-          break;
-        case BARCODE_DETECTION:
-          Log.i(TAG, "Using Barcode Detector Processor");
-          cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor());
-          break;
-        case IMAGE_LABEL_DETECTION:
-          Log.i(TAG, "Using Image Label Detector Processor");
-          cameraSource.setMachineLearningFrameProcessor(new ImageLabelingProcessor());
-          break;
-        default:
-          Log.e(TAG, "Unknown model: " + model);
-      }
-    } catch (FirebaseMLException e) {
-      Log.e(TAG, "can not create camera source: " + model);
+
+    switch (model) {
+
+
+      case FACE_DETECTION:
+        Log.i(TAG, "Using Face Detector Processor");
+        cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor());
+        break;
+
+      default:
+        Log.e(TAG, "Unknown model: " + model);
     }
+
   }
+
 
   /**
    * Starts or restarts the camera source, if it exists. If the camera source doesn't exist yet
-   * (e.g., because onResume was called before the camera source was created), this will be called
+   * (e.g., because onResume was calFirebaseMLExceptionled before the camera source was created), this will be called
    * again when the camera source is created.
    */
   private void startCameraSource() {

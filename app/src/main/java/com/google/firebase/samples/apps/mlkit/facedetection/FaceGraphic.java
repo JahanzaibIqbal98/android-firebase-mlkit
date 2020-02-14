@@ -88,12 +88,7 @@ public class FaceGraphic extends Graphic {
     float x = translateX(face.getBoundingBox().centerX());
     float y = translateY(face.getBoundingBox().centerY());
     canvas.drawCircle(x, y, FACE_POSITION_RADIUS, facePositionPaint);
-    canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
-    canvas.drawText(
-        "happiness: " + String.format("%.2f", face.getSmilingProbability()),
-        x + ID_X_OFFSET * 3,
-        y - ID_Y_OFFSET,
-        idPaint);
+
     if (facing == CameraSource.CAMERA_FACING_FRONT) {
       canvas.drawText(
           "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),

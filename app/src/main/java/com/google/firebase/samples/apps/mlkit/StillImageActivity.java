@@ -37,12 +37,12 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Spinner;
 
 import com.google.android.gms.common.annotation.KeepName;
-import com.google.firebase.samples.apps.mlkit.cloudimagelabeling.CloudImageLabelingProcessor;
-import com.google.firebase.samples.apps.mlkit.cloudlandmarkrecognition.CloudLandmarkRecognitionProcessor;
-import com.google.firebase.samples.apps.mlkit.cloudtextrecognition.CloudDocumentTextRecognitionProcessor;
+//import com.google.firebase.samples.apps.mlkit.cloudimagelabeling.CloudImageLabelingProcessor;
+//import com.google.firebase.samples.apps.mlkit.cloudlandmarkrecognition.CloudLandmarkRecognitionProcessor;
+//import com.google.firebase.samples.apps.mlkit.cloudtextrecognition.CloudDocumentTextRecognitionProcessor;
 
 
-import com.google.firebase.samples.apps.mlkit.cloudtextrecognition.CloudTextRecognitionProcessor;
+//import com.google.firebase.samples.apps.mlkit.cloudtextrecognition.CloudTextRecognitionProcessor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -361,18 +361,7 @@ public final class StillImageActivity extends AppCompatActivity {
 
   private void createImageProcessor() {
     switch (selectedMode) {
-      case CLOUD_LABEL_DETECTION:
-        imageProcessor = new CloudImageLabelingProcessor();
-        break;
-      case CLOUD_LANDMARK_DETECTION:
-        imageProcessor = new CloudLandmarkRecognitionProcessor();
-        break;
-      case CLOUD_TEXT_DETECTION:
-        imageProcessor = new CloudTextRecognitionProcessor();
-        break;
-      case CLOUD_DOCUMENT_TEXT_DETECTION:
-        imageProcessor = new CloudDocumentTextRecognitionProcessor();
-        break;
+
       default:
         throw new IllegalStateException("Unknown selectedMode: " + selectedMode);
     }
